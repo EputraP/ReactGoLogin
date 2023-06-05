@@ -7,7 +7,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Dashboard, InputData } from "../index";
+import { Layout, Menu, theme } from "antd";
+import { Route, Routes, useLocation } from "react-router-dom";
+import "./LandingPage.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,21 +31,28 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
+  getItem("Dashboard", "Dashboard", <PieChartOutlined />),
+  getItem("Input Item", "InputItem", <UserOutlined />, [
+    getItem("Brand", "InputBrand"),
+    getItem("Category", "InputCategory"),
+    getItem("Product", "InputProduct"),
   ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
+  getItem("Team", "Team", <TeamOutlined />, [
+    getItem("Team Tree", "TeamTree", <TeamOutlined />),
+    getItem("Input Team", "InputTeam", <TeamOutlined />),
   ]),
-  getItem("Files", "9", <FileOutlined />),
+  getItem("Analytic", "Analytic", <TeamOutlined />, [
+    getItem("Product", "ProductAnalytic", <TeamOutlined />),
+    getItem("Team", "TeamAnalytic", <TeamOutlined />),
+  ]),
+  getItem("Analytic", "Analytic", <TeamOutlined />, [
+    getItem("Product", "ProductAnalytic", <TeamOutlined />),
+    getItem("Team", "TeamAnalytic", <TeamOutlined />),
+  ]),
+  getItem("Logout", "Logout", <FileOutlined />),
 ];
 
-const Dashboard: React.FC = () => {
+const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -54,22 +64,19 @@ const Dashboard: React.FC = () => {
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
+        style={{ overflowY: "auto", marginBottom: "48px" }}
       >
-        <div className="demo-logo-vertical" />
+        <div>Test</div>
         <Menu
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
-        />
+        ></Menu>
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
           <div
             style={{
               padding: 24,
@@ -88,4 +95,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default LandingPage;

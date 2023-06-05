@@ -1,5 +1,5 @@
 import {} from "react";
-import { Login, Dashboard } from "./screen/index";
+import { Login, LandingPage } from "./screens/index";
 import styled from "styled-components";
 
 const ScreenContainer = styled.div`
@@ -13,7 +13,7 @@ function App() {
   return (
     <ScreenContainer>
       {/* <Login></Login> */}
-      <Dashboard />
+      <LandingPage />
     </ScreenContainer>
   );
 }
