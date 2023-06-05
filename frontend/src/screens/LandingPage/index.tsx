@@ -11,6 +11,21 @@ import { Dashboard, InputData } from "../index";
 import { Layout, Menu, theme } from "antd";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./LandingPage.css";
+import styled from "styled-components";
+
+interface ILogoutContainer {
+  collapse: boolean;
+}
+
+const LogoutContainer = styled.div<ILogoutContainer>`
+  heigth: 20px;
+  background-color: #001529;
+  position: fixed;
+  bottom: 48px;
+  z-index: 1;
+  color: white;
+  transition: all 0.1s, background 0.1s;
+`;
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -45,10 +60,7 @@ const items: MenuItem[] = [
     getItem("Product", "ProductAnalytic", <TeamOutlined />),
     getItem("Team", "TeamAnalytic", <TeamOutlined />),
   ]),
-  getItem("Analytic", "Analytic", <TeamOutlined />, [
-    getItem("Product", "ProductAnalytic", <TeamOutlined />),
-    getItem("Team", "TeamAnalytic", <TeamOutlined />),
-  ]),
+  getItem("Repository", "Repository", <FileOutlined />),
   getItem("Logout", "Logout", <FileOutlined />),
 ];
 
@@ -73,6 +85,12 @@ const LandingPage: React.FC = () => {
           mode="inline"
           items={items}
         ></Menu>
+        {/* {collapsed == false ? (
+          <LogoutContainer collapse={collapsed}>logout</LogoutContainer>
+        ) : (
+          <LogoutContainer collapse={collapsed}>logout</LogoutContainer>
+        )} */}
+        <LogoutContainer collapse={collapsed}>logout</LogoutContainer>
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
