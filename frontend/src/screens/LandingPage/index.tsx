@@ -6,7 +6,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
+import { Collapse, MenuProps } from "antd";
 import { Dashboard, InputData } from "../index";
 import { Layout, Menu, theme } from "antd";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -18,23 +18,42 @@ interface IUserContainer {
 }
 
 const UserContainer = styled.div<IUserContainer>`
-  width: 100%;
   position: fixed;
+  height: 50px;
   bottom: 55px;
   z-index: 1;
   color: white;
-  margin: 4px;
   display: flex;
   align-items: center;
-  :hover {
-    cursor: pointer;
+  div {
+    position: relative;
+    width: 100%;
+    margin: 4px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ${({ collapse }) =>
+      collapse == true
+        ? "justify-content: center;"
+        : "justify-content: flex-start;"}
+    img {
+      :hover {
+        cursor: pointer;
+      }
+    }
   }
+
   ${({ collapse }) =>
     !collapse &&
     css`
       padding-left: 24px;
       padding-right: 16px;
+      width: 192px;
       label {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
         margin-left: 10px;
         transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
           margin 0.3s, color 0.3s;
@@ -53,15 +72,29 @@ const UserContainer = styled.div<IUserContainer>`
     `};
 `;
 
-const UserPopUpContainer = styled.div`
-  height: 100px;
-  width: 160px;
-  background-color: #001529;
-  position: absolute;
-  top: 20px;
-  left: 85px;
+const UserPopUpContainer = styled.div<IUserContainer>`
+  height: 100px !important;
+  width: 200px !important;
+  background-color: transparant;
+  position: absolute !important;
+  top: -60px !important;
+  // left: 60px;
+  ${({ collapse }) => (collapse == true ? "left: 60px;" : "left: 155px;")}
   z-index: 100000;
   border-radius: 8px;
+  margin: 0px !important;
+`;
+const InnerUserPopUpContainer = styled.div<IUserContainer>`
+  background-color: #001529;
+  width: 152px !important;
+  height: 90px !important;
+  border-radius: 8px;
+  margin-left: 0px !important;
+
+  ${({ collapse }) =>
+    collapse == true
+      ? "margin-left: 0px !important;"
+      : "margin-left: 22px !important;"}
 `;
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -105,13 +138,13 @@ const items: MenuItem[] = [
 
 const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const [collapsedUser, setCollapsedUser] = useState(true);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      {/* <UserPopUpContainer></UserPopUpContainer> */}
       <Sider
         collapsible
         collapsed={collapsed}
@@ -125,14 +158,26 @@ const LandingPage: React.FC = () => {
           mode="inline"
           items={items}
         ></Menu>
-        {/* {collapsed == false ? (
-          <LogoutContainer collapse={collapsed}>logout</LogoutContainer>
-        ) : (
-          <LogoutContainer collapse={collapsed}>logout</LogoutContainer>
-        )} */}
-        <UserContainer collapse={collapsed}>
-          <img src={User} />
-          {!collapsed && <label>Admin</label>}
+        <UserContainer
+          onMouseOver={() => setCollapsedUser(false)}
+          onMouseOut={() => setCollapsedUser(true)}
+          collapse={collapsed}
+        >
+          <div>
+            <img src={User} />
+            {!collapsed && <label>Admin</label>}
+            {!collapsedUser && (
+              <UserPopUpContainer
+                collapse={collapsed}
+                onMouseOver={() => setCollapsedUser(false)}
+                onMouseOut={() => setCollapsedUser(true)}
+              >
+                <InnerUserPopUpContainer
+                  collapse={collapsed}
+                ></InnerUserPopUpContainer>
+              </UserPopUpContainer>
+            )}
+          </div>
         </UserContainer>
       </Sider>
       <Layout>
