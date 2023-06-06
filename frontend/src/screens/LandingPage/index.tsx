@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BarChartOutlined,
   FolderOpenOutlined,
@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Dashboard } from "../index";
 import { Layout, Menu, theme, MenuProps } from "antd";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { User } from "../../assets";
 import styled, { css } from "styled-components";
 import "./LandingPage.css";
@@ -161,10 +161,13 @@ const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedUser, setCollapsedUser] = useState(true);
   const navigate = useNavigate();
+  let location = useLocation();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  useEffect(() => {
+    navigate("/dashboard");
+  }, []);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -178,7 +181,7 @@ const LandingPage: React.FC = () => {
       >
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["/dashboard"]}
           mode="inline"
           items={items}
           onClick={({ key }) => {
@@ -213,10 +216,21 @@ const LandingPage: React.FC = () => {
         </UserContainer>
       </Sider>
       <Layout>
+        {location.pathname == "/" ? (
+          <></>
+        ) : (
+          <Header
+            style={{
+              textAlign: "center",
+              backgroundColor: "#001529",
+              color: "white",
+              height: "48px",
+            }}
+          >
+            Test
+          </Header>
+        )}
         <Content>
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>

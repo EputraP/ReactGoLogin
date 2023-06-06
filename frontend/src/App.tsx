@@ -1,6 +1,7 @@
 import {} from "react";
 import { Login, LandingPage } from "./screens/index";
 import styled from "styled-components";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 const ScreenContainer = styled.div`
   width: 100%;
@@ -12,8 +13,12 @@ const ScreenContainer = styled.div`
 function App() {
   return (
     <ScreenContainer>
-      {/* <Login></Login> */}
-      <LandingPage />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Routes>
+        <Route path="*" element={<LandingPage />} />
+      </Routes>
     </ScreenContainer>
   );
 }
