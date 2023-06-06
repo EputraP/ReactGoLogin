@@ -1,0 +1,26 @@
+:where(.css-dev-only-do-not-override-k7429z).ant-layout.ant-layout-has-sider {
+  background-color: #001529;
+}
+:where(.css-dev-only-do-not-override-k7429z).ant-layout
+  .ant-layout-sider-trigger {
+  background: #001529;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #dddd;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #063969;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #05111c;
+}

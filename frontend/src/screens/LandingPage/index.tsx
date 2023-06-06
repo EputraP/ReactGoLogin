@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  BarChartOutlined,
+  FolderOpenOutlined,
+  CloudUploadOutlined,
+  DollarOutlined,
+  DashboardOutlined,
+  ApartmentOutlined,
 } from "@ant-design/icons";
-import { Collapse, MenuProps } from "antd";
-import { Dashboard, InputData } from "../index";
-import { Layout, Menu, theme } from "antd";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Dashboard } from "../index";
+import { Layout, Menu, theme, MenuProps } from "antd";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { User } from "../../assets";
 import styled, { css } from "styled-components";
+import "./LandingPage.css";
+import { Brand, Category, Product } from "../Items";
 
 interface IUserContainer {
   collapse: boolean;
@@ -57,8 +59,10 @@ const UserContainer = styled.div<IUserContainer>`
         margin-left: 10px;
         transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
           margin 0.3s, color 0.3s;
+        color: #9ba299;
         :hover {
           cursor: pointer;
+          color: white;
         }
       }
     `};
@@ -78,7 +82,6 @@ const UserPopUpContainer = styled.div<IUserContainer>`
   background-color: transparant;
   position: absolute !important;
   top: -60px !important;
-  // left: 60px;
   ${({ collapse }) => (collapse == true ? "left: 60px;" : "left: 155px;")}
   z-index: 100000;
   border-radius: 8px;
@@ -90,11 +93,29 @@ const InnerUserPopUpContainer = styled.div<IUserContainer>`
   height: 90px !important;
   border-radius: 8px;
   margin-left: 0px !important;
-
+  display: flex;
+  flex-direction: column;
   ${({ collapse }) =>
     collapse == true
       ? "margin-left: 0px !important;"
       : "margin-left: 22px !important;"}
+  div {
+    height: 45%;
+    width: 100%;
+    display: flex !important;
+    justify-content: flex-start;
+    :hover {
+      cursor: pointer;
+    }
+    label {
+      margin-left: 15px;
+      color: #9ba299;
+      :hover {
+        cursor: pointer;
+        color: white;
+      }
+    }
+  }
 `;
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -116,29 +137,30 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Dashboard", "Dashboard", <PieChartOutlined />),
-  getItem("Input Items", "InputItem", <UserOutlined />, [
-    getItem("Brand", "InputBrand"),
-    getItem("Category", "InputCategory"),
-    getItem("Product", "InputProduct"),
+  getItem("Dashboard", "/dashboard", <DashboardOutlined />),
+  getItem("Items", "", <CloudUploadOutlined />, [
+    getItem("Brand", "/items/brand"),
+    getItem("Category", "items/category"),
+    getItem("Product", "items/product"),
   ]),
-  getItem("Transaction", "Transaction", <UserOutlined />, [
+  getItem("Transaction", "Transaction", <DollarOutlined />, [
     getItem("Daily Report", "DailyReport"),
   ]),
-  getItem("Team", "Team", <TeamOutlined />, [
-    getItem("Team Tree", "TeamTree", <TeamOutlined />),
-    getItem("Input Team", "InputTeam", <TeamOutlined />),
+  getItem("Organization", "Organization", <ApartmentOutlined />, [
+    getItem("User Tree", "TeamTree"),
+    getItem("Permission", "InputTeam"),
   ]),
-  getItem("Analytic", "Analytic", <TeamOutlined />, [
-    getItem("Product", "ProductAnalytic", <TeamOutlined />),
-    getItem("Team", "TeamAnalytic", <TeamOutlined />),
+  getItem("Analytic", "Analytic", <BarChartOutlined />, [
+    getItem("Product", "ProductAnalytic"),
+    getItem("Team", "TeamAnalytic"),
   ]),
-  getItem("Repository", "Repository", <FileOutlined />),
+  getItem("Repository", "Repository", <FolderOpenOutlined />),
 ];
 
 const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedUser, setCollapsedUser] = useState(true);
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -149,14 +171,19 @@ const LandingPage: React.FC = () => {
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
-        style={{ overflowY: "auto", marginBottom: "48px" }}
+        style={{
+          overflowY: "auto",
+          marginBottom: "100px",
+        }}
       >
-        <div>Test</div>
         <Menu
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
+          onClick={({ key }) => {
+            navigate(key);
+          }}
         ></Menu>
         <UserContainer
           onMouseOver={() => setCollapsedUser(false)}
@@ -172,29 +199,40 @@ const LandingPage: React.FC = () => {
                 onMouseOver={() => setCollapsedUser(false)}
                 onMouseOut={() => setCollapsedUser(true)}
               >
-                <InnerUserPopUpContainer
-                  collapse={collapsed}
-                ></InnerUserPopUpContainer>
+                <InnerUserPopUpContainer collapse={collapsed}>
+                  <div>
+                    <label>My Account</label>
+                  </div>
+                  <div>
+                    <label>Logout</label>
+                  </div>
+                </InnerUserPopUpContainer>
               </UserPopUpContainer>
             )}
           </div>
         </UserContainer>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "0 16px" }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-            }}
-          >
-            Bill is a cat.
-          </div>
+        <Content>
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+          <Routes>
+            <Route path="/items/brand" element={<Brand />} />
+          </Routes>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2023 Created by Ant UED
+        <Footer
+          style={{
+            textAlign: "center",
+            backgroundColor: "#001529",
+            color: "white",
+            height: "48px",
+          }}
+        >
+          ©2023 FreelanceSkuy
         </Footer>
       </Layout>
     </Layout>
