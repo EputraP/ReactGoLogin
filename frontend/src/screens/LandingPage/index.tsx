@@ -14,6 +14,7 @@ import { User } from "../../assets";
 import styled, { css } from "styled-components";
 import "./LandingPage.css";
 import { Brand, Category, Product } from "../Items";
+import { UserTree } from "../Teams";
 
 interface IUserContainer {
   collapse: boolean;
@@ -118,7 +119,7 @@ const InnerUserPopUpContainer = styled.div<IUserContainer>`
   }
 `;
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -147,7 +148,7 @@ const items: MenuItem[] = [
     getItem("Daily Report", "DailyReport"),
   ]),
   getItem("Organization", "Organization", <ApartmentOutlined />, [
-    getItem("User Tree", "TeamTree"),
+    getItem("User Tree", "/teams/usertree"),
     getItem("Permission", "InputTeam"),
   ]),
   getItem("Analytic", "Analytic", <BarChartOutlined />, [
@@ -161,7 +162,7 @@ const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedUser, setCollapsedUser] = useState(true);
   const navigate = useNavigate();
-  let location = useLocation();
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -216,20 +217,6 @@ const LandingPage: React.FC = () => {
         </UserContainer>
       </Sider>
       <Layout>
-        {location.pathname == "/" ? (
-          <></>
-        ) : (
-          <Header
-            style={{
-              textAlign: "center",
-              backgroundColor: "#001529",
-              color: "white",
-              height: "48px",
-            }}
-          >
-            Test
-          </Header>
-        )}
         <Content>
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -237,17 +224,10 @@ const LandingPage: React.FC = () => {
           <Routes>
             <Route path="/items/brand" element={<Brand />} />
           </Routes>
+          <Routes>
+            <Route path="/teams/usertree" element={<UserTree />} />
+          </Routes>
         </Content>
-        <Footer
-          style={{
-            textAlign: "center",
-            backgroundColor: "#001529",
-            color: "white",
-            height: "48px",
-          }}
-        >
-          ©2023 FreelanceSkuy
-        </Footer>
       </Layout>
     </Layout>
   );
