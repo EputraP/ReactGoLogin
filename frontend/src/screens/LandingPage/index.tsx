@@ -162,12 +162,13 @@ const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedUser, setCollapsedUser] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   useEffect(() => {
-    navigate("/dashboard");
+    if (location.pathname == "/") navigate("/dashboard");
   }, []);
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -182,7 +183,7 @@ const LandingPage: React.FC = () => {
       >
         <Menu
           theme="dark"
-          defaultSelectedKeys={["/dashboard"]}
+          defaultSelectedKeys={[location.pathname]}
           mode="inline"
           items={items}
           onClick={({ key }) => {
