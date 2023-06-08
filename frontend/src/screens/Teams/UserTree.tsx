@@ -3,6 +3,7 @@ import Splitter from "m-react-splitters";
 import { Tree, TreeNode } from "react-organizational-chart";
 import "m-react-splitters/lib/splitters.css";
 import styled from "styled-components";
+import ChartSample from "../../components/OrgChart/chart.tsx";
 
 const StyledNode = styled.div`
   padding: 5px;
@@ -21,7 +22,7 @@ const UserTree = () => {
       postPoned={false}
     >
       <div>
-        <Tree
+        {/* <Tree
           lineWidth={"2px"}
           lineColor={"green"}
           lineBorderRadius={"10px"}
@@ -40,7 +41,12 @@ const UserTree = () => {
             <TreeNode label={<StyledNode>Grand Child 1</StyledNode>} />
             <TreeNode label={<StyledNode>Grand Child 2</StyledNode>} />
           </TreeNode>
-        </Tree>
+        </Tree> */}
+        <ChartSample
+          data={[{ name: "rest" }]}
+          setClick={() => {}}
+          onNodeClick={() => {}}
+        />
       </div>
       <div>dua</div>
     </Splitter>
