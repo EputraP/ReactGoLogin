@@ -43,7 +43,7 @@ const UserTree = () => {
           </TreeNode>
         </Tree> */}
         <ChartSample
-          data={[{ name: "rest" }]}
+          data={[{ id: 1 }]}
           setClick={() => {}}
           onNodeClick={() => {}}
         />

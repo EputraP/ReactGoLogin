@@ -3,15 +3,18 @@ import ReactDOMServer from "react-dom/server";
 import { OrgChart } from "d3-org-chart";
 import { select } from "d3-selection";
 import { HierarchyNode } from "d3-hierarchy";
+import { AnyStyledComponent } from "styled-components";
 
 const d3 = { select };
 
 export interface Datum {
-  _upToTheRootHighlighted: boolean;
+  id: number;
+  _upToTheRootHighlighted: string;
+  name: string;
 }
 
 interface Props {
-  data: Datum[];
+  data: Array<Datum>;
   setClick: Function;
   onNodeClick: Function;
 }
@@ -19,7 +22,7 @@ interface Props {
 export default function ChartSample(props: Props) {
   console.log(OrgChart);
   const d3Container = useRef(null);
-  const chart: OrgChart<Datum> = new OrgChart<Datum>();
+  const chart: OrgChart<any> = new OrgChart<any>();
 
   props.setClick((node: Datum) => chart!.addNode(node));
 
@@ -28,12 +31,17 @@ export default function ChartSample(props: Props) {
       chart
         .setActiveNodeCentered(false)
         .container(d3Container.current)
-        .data(props.data)
+        .data([
+          { id: "3", parentId: "", name: "Administrator" },
+          { id: 4, parentId: "3", name: "Developer" },
+          { id: 5, parentId: "3", name: "Busines Analys" },
+          { id: 6, parentId: "3", name: "Finance" },
+        ])
         .onNodeClick((d) => {
           console.log(d, "Id of clicked node ");
           props.onNodeClick(d);
         })
-        .nodeContent((node, index, nodes, state): string => {
+        .nodeContent((node, index, nodes, state): any => {
           return ReactDOMServer.renderToStaticMarkup(
             <div
               style={{
@@ -41,9 +49,12 @@ export default function ChartSample(props: Props) {
                 height: "100%",
                 border: "1px solid #666666",
                 textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              Sample ID {node.id}
+              {node.data.name}
             </div>
           );
         })
@@ -60,7 +71,7 @@ export default function ChartSample(props: Props) {
             d3.select(this).raise();
           }
         })
-        .layout("left")
+        //.layout("top")
         .compact(false)
         .nodeWidth((node: HierarchyNode<Datum>) => 150)
         .nodeHeight((node: HierarchyNode<Datum>) => 60)
