@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Splitter from "m-react-splitters";
 import styled from "styled-components";
-import { Radio } from "antd";
 import { RadioButton } from "../../components";
 import { Button, Form, Input, InputNumber } from "antd";
-import "./Brand.css";
+import { ListItems } from "../Items";
+import "./Items.css";
 const SplitterContainer = styled.div`
   margin: 10px;
 `;
@@ -75,6 +75,7 @@ const Brand = () => {
             ]}
             change={radioButtonOnChange}
             selectedValue={RadioValue}
+            optionType={true}
           />
         </RadioButtonContainer>
         <FormContainer>
@@ -164,7 +165,9 @@ const Brand = () => {
           )}
         </FormContainer>
       </SplitterContainer>
-      <SplitterContainer></SplitterContainer>
+      <SplitterContainer>
+        <ListItems />
+      </SplitterContainer>
     </Splitter>
   );
 };

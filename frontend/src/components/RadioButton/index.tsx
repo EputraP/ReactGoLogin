@@ -11,19 +11,21 @@ interface Props {
   data: Array<Data>;
   change: Function;
   selectedValue: string;
+  optionType: boolean;
 }
 
 const RadioButton = (props: Props) => {
-  const { data, change, selectedValue } = props;
+  const { data, change, selectedValue, optionType } = props;
   const onChange4 = ({ target: { value } }: RadioChangeEvent) => {
     change(value);
   };
+
   return (
     <Radio.Group
       options={data}
       onChange={onChange4}
       value={selectedValue}
-      optionType="button"
+      optionType={optionType ? "button" : "default"}
       buttonStyle="solid"
     />
   );
