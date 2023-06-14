@@ -67,6 +67,9 @@ const Brand = () => {
       postPoned={false}
     >
       <SplitterContainer>
+        <ListItems />
+      </SplitterContainer>
+      <SplitterContainer>
         <RadioButtonContainer>
           <RadioButton
             data={[
@@ -164,9 +167,6 @@ const Brand = () => {
             </FormContainerInner>
           )}
         </FormContainer>
-      </SplitterContainer>
-      <SplitterContainer>
-        <ListItems />
       </SplitterContainer>
     </Splitter>
   );

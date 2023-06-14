@@ -162,8 +162,13 @@ const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedUser, setCollapsedUser] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
+  let location = useLocation();
 
+  const pathLocationArr = String(location.pathname).split("/");
+  console.log(pathLocationArr[pathLocationArr.length - 1]);
+  const firstLetter =
+    pathLocationArr[pathLocationArr.length - 1].charAt(0).toUpperCase;
+  console.log(firstLetter);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
