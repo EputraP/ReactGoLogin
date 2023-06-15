@@ -62,6 +62,7 @@ const onFinish = (values: any) => {
 const Brand = (props: Props) => {
   const { screenName } = props;
   const [RadioValue, setRadioValue] = useState("Create");
+  const [CreUptButtonFlag, setCreUptButtonFlag] = useState(false);
 
   const radioButtonOnChange = (value: any) => {
     setRadioValue(value);
@@ -72,111 +73,118 @@ const Brand = (props: Props) => {
       position="vertical"
       primaryPaneMaxWidth="100%"
       primaryPaneMinWidth={600}
-      primaryPaneWidth="98.9%"
+      primaryPaneWidth="70%"
       postPoned={false}
     >
       <SplitterContainer>
-        <ListItems screenName={screenName} />
+        <ListItems
+          screenName={screenName}
+          funcSplitterTrigger={() => {
+            setCreUptButtonFlag(!CreUptButtonFlag);
+          }}
+        />
       </SplitterContainer>
-      <SplitterContainer>
-        <RadioButtonContainer>
-          <RadioButton
-            data={[
-              { label: "Create", value: "Create" },
-              { label: "Update", value: "Update" },
-            ]}
-            change={radioButtonOnChange}
-            selectedValue={RadioValue}
-            optionType={true}
-          />
-        </RadioButtonContainer>
-        <FormContainer>
-          {RadioValue == "Create" && (
-            <FormContainerInner
-              {...layout}
-              name="nest-messages"
-              onFinish={onFinish}
-              style={{ maxWidth: 600 }}
-              validateMessages={validateMessages}
-            >
-              <Form.Item
-                name={["user", "name"]}
-                label="Name"
-                rules={[{ required: true }]}
+      {CreUptButtonFlag && (
+        <SplitterContainer>
+          <RadioButtonContainer>
+            <RadioButton
+              data={[
+                { label: "Create", value: "Create" },
+                { label: "Update", value: "Update" },
+              ]}
+              change={radioButtonOnChange}
+              selectedValue={RadioValue}
+              optionType={true}
+            />
+          </RadioButtonContainer>
+          <FormContainer>
+            {RadioValue == "Create" && (
+              <FormContainerInner
+                {...layout}
+                name="nest-messages"
+                onFinish={onFinish}
+                style={{ maxWidth: 600 }}
+                validateMessages={validateMessages}
               >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["user", "email"]}
-                label="Email"
-                rules={[{ type: "email" }]}
+                <Form.Item
+                  name={["user", "name"]}
+                  label="Name"
+                  rules={[{ required: true }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name={["user", "email"]}
+                  label="Email"
+                  rules={[{ type: "email" }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name={["user", "age"]}
+                  label="Age"
+                  rules={[{ type: "number", min: 0, max: 99 }]}
+                >
+                  <InputNumber />
+                </Form.Item>
+                <Form.Item name={["user", "website"]} label="Website">
+                  <Input />
+                </Form.Item>
+                <Form.Item name={["user", "introduction"]} label="Introduction">
+                  <Input.TextArea />
+                </Form.Item>
+                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                  <Button type="primary" htmlType="submit">
+                    Create
+                  </Button>
+                </Form.Item>
+              </FormContainerInner>
+            )}
+            {RadioValue != "Create" && (
+              <FormContainerInner
+                {...layout}
+                name="nest-messages"
+                onFinish={onFinish}
+                style={{ maxWidth: 600 }}
+                validateMessages={validateMessages}
               >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["user", "age"]}
-                label="Age"
-                rules={[{ type: "number", min: 0, max: 99 }]}
-              >
-                <InputNumber />
-              </Form.Item>
-              <Form.Item name={["user", "website"]} label="Website">
-                <Input />
-              </Form.Item>
-              <Form.Item name={["user", "introduction"]} label="Introduction">
-                <Input.TextArea />
-              </Form.Item>
-              <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type="primary" htmlType="submit">
-                  Create
-                </Button>
-              </Form.Item>
-            </FormContainerInner>
-          )}
-          {RadioValue != "Create" && (
-            <FormContainerInner
-              {...layout}
-              name="nest-messages"
-              onFinish={onFinish}
-              style={{ maxWidth: 600 }}
-              validateMessages={validateMessages}
-            >
-              <Form.Item
-                name={["user", "name"]}
-                label="Name"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["user", "email"]}
-                label="Email"
-                rules={[{ type: "email" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["user", "age"]}
-                label="Age"
-                rules={[{ type: "number", min: 0, max: 99 }]}
-              >
-                <InputNumber />
-              </Form.Item>
-              <Form.Item name={["user", "website"]} label="Website">
-                <Input />
-              </Form.Item>
-              <Form.Item name={["user", "introduction"]} label="Introduction">
-                <Input.TextArea />
-              </Form.Item>
-              <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type="primary" htmlType="submit">
-                  Update
-                </Button>
-              </Form.Item>
-            </FormContainerInner>
-          )}
-        </FormContainer>
-      </SplitterContainer>
+                <Form.Item
+                  name={["user", "name"]}
+                  label="Name"
+                  rules={[{ required: true }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name={["user", "email"]}
+                  label="Email"
+                  rules={[{ type: "email" }]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name={["user", "age"]}
+                  label="Age"
+                  rules={[{ type: "number", min: 0, max: 99 }]}
+                >
+                  <InputNumber />
+                </Form.Item>
+                <Form.Item name={["user", "website"]} label="Website">
+                  <Input />
+                </Form.Item>
+                <Form.Item name={["user", "introduction"]} label="Introduction">
+                  <Input.TextArea />
+                </Form.Item>
+                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                  <Button type="primary" htmlType="submit">
+                    Update
+                  </Button>
+                </Form.Item>
+              </FormContainerInner>
+            )}
+          </FormContainer>
+        </SplitterContainer>
+      )}
     </Splitter>
   );
 };

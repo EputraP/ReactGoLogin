@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 interface Props {
   screenName?: string | undefined;
+  funcSplitterTrigger?: Function | undefined;
 }
 
 const TitleContainer = styled.h1`
@@ -12,12 +13,17 @@ const TitleContainer = styled.h1`
 `;
 
 const ListItems = (props: Props) => {
-  const { screenName } = props;
+  const { screenName, funcSplitterTrigger } = props;
   const [RadioValue, setRadioValue] = useState("Single Select");
   const [DeleteButtonFlag, setDeleteButtonFlag] = useState(false);
 
   const radioButtonOnChange = (value: any) => {
     setRadioValue(value);
+  };
+  const onClickCreateUpdateHandler = () => {
+    if (funcSplitterTrigger) {
+      funcSplitterTrigger("triggered");
+    }
   };
 
   return (
@@ -33,8 +39,17 @@ const ListItems = (props: Props) => {
         optionType={false}
       />
       <TableComponent />
+      <ButtonComponent
+        style={{ margin: "5px" }}
+        onClick={onClickCreateUpdateHandler}
+      >
+        Create/Update
+      </ButtonComponent>
       {RadioValue == "Multi Select" && (
-        <ButtonComponent onClick={() => setDeleteButtonFlag(!DeleteButtonFlag)}>
+        <ButtonComponent
+          style={{ backgorundColor: "red", margin: "5px" }}
+          onClick={() => setDeleteButtonFlag(!DeleteButtonFlag)}
+        >
           Delete
         </ButtonComponent>
       )}

@@ -4,19 +4,24 @@ import { Button } from "antd";
 interface Props {
   onClick?: Function | undefined;
   children?: string | null;
+  style?: { backgorundColor?: any; margin?: any } | null;
 }
 
 const ButtonComponent: React.FC<Props> = (props: Props) => {
-  const { onClick, children } = props;
+  const { onClick, children, style } = props;
 
   const onClickHandler = () => {
     if (onClick) {
-      onClick("test");
+      onClick("triggered");
     }
   };
 
   return (
-    <Button type="primary" onClick={onClickHandler}>
+    <Button
+      type="primary"
+      onClick={onClickHandler}
+      style={{ backgroundColor: style?.backgorundColor, margin: style?.margin }}
+    >
       {children}
     </Button>
   );
