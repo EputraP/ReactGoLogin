@@ -5,12 +5,18 @@ import { RadioButton } from "../../components";
 import { Button, Form, Input, InputNumber } from "antd";
 import { ListItems } from "../Items";
 import "./Items.css";
+
+interface Props {
+  screenName?: string | undefined;
+}
+
 const SplitterContainer = styled.div`
   margin: 10px;
 `;
 const RadioButtonContainer = styled.div`
   width: 100%;
   height: 30px;
+  margin-top: 20px;
 `;
 const FormContainer = styled.div`
   width: 100%;
@@ -26,8 +32,10 @@ const FormContainerInner = styled(Form)`
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: -110px;
-  justify-content: center;
+  margin-top: 20px;
+  margin-left: -20px;
+
+  // justify-content: center;
 `;
 const layout = {
   labelCol: { span: 8 },
@@ -51,23 +59,24 @@ const onFinish = (values: any) => {
   console.log(values);
 };
 
-const Brand = () => {
+const Brand = (props: Props) => {
+  const { screenName } = props;
   const [RadioValue, setRadioValue] = useState("Create");
 
   const radioButtonOnChange = (value: any) => {
     setRadioValue(value);
   };
-  console.log(RadioValue);
+  console.log(screenName);
   return (
     <Splitter
       position="vertical"
-      primaryPaneMaxWidth="80%"
-      primaryPaneMinWidth={420}
-      primaryPaneWidth="60%"
+      primaryPaneMaxWidth="100%"
+      primaryPaneMinWidth={600}
+      primaryPaneWidth="98.9%"
       postPoned={false}
     >
       <SplitterContainer>
-        <ListItems />
+        <ListItems screenName={screenName} />
       </SplitterContainer>
       <SplitterContainer>
         <RadioButtonContainer>

@@ -158,23 +158,30 @@ const items: MenuItem[] = [
   getItem("Repository", "Repository", <FolderOpenOutlined />),
 ];
 
+const GetScreenNameFromPathName = (location: any) => {
+  const pathLocationArr = String(location.pathname).split("/");
+
+  return (
+    pathLocationArr[pathLocationArr.length - 1].charAt(0).toUpperCase() +
+    pathLocationArr[pathLocationArr.length - 1].slice(1)
+  );
+};
+
 const LandingPage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [collapsedUser, setCollapsedUser] = useState(true);
   const navigate = useNavigate();
   let location = useLocation();
 
-  const pathLocationArr = String(location.pathname).split("/");
-  console.log(pathLocationArr[pathLocationArr.length - 1]);
-  const firstLetter =
-    pathLocationArr[pathLocationArr.length - 1].charAt(0).toUpperCase;
-  console.log(firstLetter);
+  const screenName = GetScreenNameFromPathName(location);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   useEffect(() => {
     if (location.pathname == "/") navigate("/dashboard");
   }, []);
+  console.log(location.pathname);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -188,7 +195,9 @@ const LandingPage: React.FC = () => {
       >
         <Menu
           theme="dark"
-          defaultSelectedKeys={[location.pathname]}
+          defaultSelectedKeys={
+            location.pathname == "/" ? ["/dashboard"] : [location.pathname]
+          }
           mode="inline"
           items={items}
           onClick={({ key }) => {
@@ -228,7 +237,10 @@ const LandingPage: React.FC = () => {
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           <Routes>
-            <Route path="/items/brand" element={<Brand />} />
+            <Route
+              path="/items/brand"
+              element={<Brand screenName={screenName} />}
+            />
           </Routes>
           <Routes>
             <Route path="/teams/usertree" element={<UserTree />} />
