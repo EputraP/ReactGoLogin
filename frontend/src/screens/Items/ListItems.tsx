@@ -46,6 +46,7 @@ const ListItems = (props: Props) => {
         ]}
         change={(value: any) => {
           setRadioValue(value);
+          setSelectedData([]);
         }}
         selectedValue={RadioValue}
         optionType={false}

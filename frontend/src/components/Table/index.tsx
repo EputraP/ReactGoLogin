@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 
@@ -67,6 +67,10 @@ const data = [
 const TableComponent: React.FC<Props> = (props: Props) => {
   const { onDoubleClick, modeSelection, FuncSelectedData } = props;
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  useEffect(() => {
+    setSelectedRowKeys([]);
+  }, [modeSelection]);
 
   const onDoubleClickHandler = () => {
     if (onDoubleClick) onDoubleClick();
