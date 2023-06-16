@@ -4,6 +4,7 @@ import type { ColumnsType, TableProps } from "antd/es/table";
 
 interface Props {
   onDoubleClick?: Function | undefined;
+  FuncSelectedData?: Function | undefined;
   modeSelection?: string;
 }
 
@@ -63,42 +64,39 @@ const data = [
   },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
-  pagination,
-  sorter,
-  extra
-) => {
-  console.log("params", pagination, sorter, extra);
-};
-
 const TableComponent: React.FC<Props> = (props: Props) => {
-  const { onDoubleClick, modeSelection } = props;
+  const { onDoubleClick, modeSelection, FuncSelectedData } = props;
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
   const onDoubleClickHandler = () => {
     if (onDoubleClick) onDoubleClick();
   };
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
+  const onDataSelectedHandler = (data: any) => {
+    if (FuncSelectedData) FuncSelectedData(data);
   };
   const rowSelection = {
     selectedRowKeys,
-    onChange: onSelectChange,
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+      setSelectedRowKeys(selectedRowKeys);
+      onDataSelectedHandler(selectedRows);
+    },
   };
-  console.log(modeSelection);
+
   return (
     <Table
       rowSelection={modeSelection == "Multi Select" ? rowSelection : undefined}
       pagination={false}
       columns={columns}
       dataSource={data}
-      onChange={onChange}
       onRow={(record, rowIndex) => {
         return {
-          onClick: (event) => {
-            console.log(record);
-          },
           onDoubleClick: (event) => {
+            onDataSelectedHandler([record]);
             onDoubleClickHandler();
           },
         };

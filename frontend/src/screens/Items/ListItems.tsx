@@ -21,30 +21,32 @@ const ListItems = (props: Props) => {
   const { screenName, funcSplitterTrigger } = props;
   const [RadioValue, setRadioValue] = useState("Single Select");
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState([]);
 
-  const radioButtonOnChange = (value: any) => {
-    setRadioValue(value);
-  };
   const onClickCreateUpdateHandler = () => {
     if (funcSplitterTrigger) {
       funcSplitterTrigger("triggered");
     }
   };
 
-  const isOpenHandler = () => {
-    setIsOpen(false);
-  };
-
   return (
     <div>
-      <ModalDeleteConfirmation isOpen={isOpen} onCancel={isOpenHandler} />
+      <ModalDeleteConfirmation
+        isOpen={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+        }}
+        data={selectedData}
+      />
       <TitleContainer>{screenName} List</TitleContainer>
       <RadioButton
         data={[
           { label: "Single Select", value: "Single Select" },
           { label: "Multi Select", value: "Multi Select" },
         ]}
-        change={radioButtonOnChange}
+        change={(value: any) => {
+          setRadioValue(value);
+        }}
         selectedValue={RadioValue}
         optionType={false}
       />
@@ -53,6 +55,9 @@ const ListItems = (props: Props) => {
           RadioValue == "Single Select" ? () => setIsOpen(true) : () => {}
         }
         modeSelection={RadioValue}
+        FuncSelectedData={(data: any) => {
+          setSelectedData(data);
+        }}
       />
       <ButtonComponent
         style={{ margin: "5px" }}
