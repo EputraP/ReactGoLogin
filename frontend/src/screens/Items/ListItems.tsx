@@ -48,7 +48,12 @@ const ListItems = (props: Props) => {
         selectedValue={RadioValue}
         optionType={false}
       />
-      <TableComponent />
+      <TableComponent
+        onDoubleClick={
+          RadioValue == "Single Select" ? () => setIsOpen(true) : () => {}
+        }
+        modeSelection={RadioValue}
+      />
       <ButtonComponent
         style={{ margin: "5px" }}
         onClick={onClickCreateUpdateHandler}
