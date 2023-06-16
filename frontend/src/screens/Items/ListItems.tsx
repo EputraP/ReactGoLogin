@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { TableComponent, RadioButton, ButtonComponent } from "../../components";
+import {
+  TableComponent,
+  RadioButton,
+  ButtonComponent,
+  ModalDeleteConfirmation,
+} from "../../components";
 import styled from "styled-components";
 
 interface Props {
@@ -15,7 +20,7 @@ const TitleContainer = styled.h1`
 const ListItems = (props: Props) => {
   const { screenName, funcSplitterTrigger } = props;
   const [RadioValue, setRadioValue] = useState("Single Select");
-  const [DeleteButtonFlag, setDeleteButtonFlag] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const radioButtonOnChange = (value: any) => {
     setRadioValue(value);
@@ -26,8 +31,13 @@ const ListItems = (props: Props) => {
     }
   };
 
+  const isOpenHandler = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div>
+      <ModalDeleteConfirmation isOpen={isOpen} onCancel={isOpenHandler} />
       <TitleContainer>{screenName} List</TitleContainer>
       <RadioButton
         data={[
@@ -48,7 +58,7 @@ const ListItems = (props: Props) => {
       {RadioValue == "Multi Select" && (
         <ButtonComponent
           style={{ backgorundColor: "red", margin: "5px" }}
-          onClick={() => setDeleteButtonFlag(!DeleteButtonFlag)}
+          onClick={() => setIsOpen(true)}
         >
           Delete
         </ButtonComponent>
