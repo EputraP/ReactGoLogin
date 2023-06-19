@@ -7,7 +7,7 @@ import { AnyStyledComponent } from "styled-components";
 
 const d3 = { select };
 
-export interface Datum {
+interface Datum {
   id: number;
   _upToTheRootHighlighted: string;
   name: string;
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function ChartSample(props: Props) {
-  console.log(OrgChart);
+  // console.log(OrgChart);
   const d3Container = useRef(null);
   const chart: OrgChart<any> = new OrgChart<any>();
 

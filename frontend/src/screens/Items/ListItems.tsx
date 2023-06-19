@@ -14,6 +14,8 @@ const Context = React.createContext({ name: "Default" });
 interface Props {
   screenName?: string | undefined;
   funcSplitterTrigger?: Function | undefined;
+  data?: object | any;
+  columns?: object | any;
 }
 
 const TitleContainer = styled.h1`
@@ -22,7 +24,7 @@ const TitleContainer = styled.h1`
 `;
 
 const ListItems = (props: Props) => {
-  const { screenName, funcSplitterTrigger } = props;
+  const { screenName, funcSplitterTrigger, data, columns } = props;
   const [RadioValue, setRadioValue] = useState("Single Select");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState([]);
@@ -79,6 +81,9 @@ const ListItems = (props: Props) => {
           FuncSelectedData={(data: any) => {
             setSelectedData(data);
           }}
+          data={data}
+          columns={columns}
+          style={{ height: "500px", overflowY: "auto" }}
         />
         <ButtonComponent
           style={{ margin: "5px" }}
