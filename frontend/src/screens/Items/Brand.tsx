@@ -62,75 +62,24 @@ const onFinish = (values: any) => {
 const data = [
   {
     key: "1",
-    name: "Alfred",
-    age: 32,
-    address: "New York No. 1 Lake Park",
+    name: "Anton Breton",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
   },
   {
     key: "2",
-    name: "Jim Red",
-    age: 42,
-    address: "London No. 1 Lake Park",
+    name: "Cervini",
+    code: "CE",
+    created: "20/06/2023",
+    updated: "20/06/2023",
   },
   {
     key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "Donald",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-  {
-    key: "5",
-    name: "Alfred",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "6",
-    name: "Jim Red",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "7",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "8",
-    name: "Donald",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-  {
-    key: "9",
-    name: "Alfred",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "10",
-    name: "Jim Red",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "11",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "12",
-    name: "Donald",
-    age: 32,
-    address: "London No. 2 Lake Park",
+    name: "Cremona",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
   },
 ];
 
@@ -141,14 +90,19 @@ const columns: any = [
     sorter: (a: any, b: any) => a.name.length - b.name.length,
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    sorter: (a: any, b: any) => a.age - b.age,
+    title: "Code",
+    dataIndex: "code",
+    sorter: (a: any, b: any) => a.code.length - b.code.length,
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    sorter: (a: any, b: any) => a.address.length - b.address.length,
+    title: "Created",
+    dataIndex: "created",
+    sorter: (a: any, b: any) => a.created.length - b.created.length,
+  },
+  {
+    title: "Updated",
+    dataIndex: "updated",
+    sorter: (a: any, b: any) => a.updated.length - b.updated.length,
   },
 ];
 

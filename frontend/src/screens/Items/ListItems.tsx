@@ -83,7 +83,7 @@ const ListItems = (props: Props) => {
           }}
           data={data}
           columns={columns}
-          style={{ height: "500px", overflowY: "auto" }}
+          style={{ height: "450px", overflowY: "auto" }}
         />
         <ButtonComponent
           style={{ margin: "5px" }}
