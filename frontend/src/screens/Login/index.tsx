@@ -24,16 +24,16 @@ const OverlayContainer = styled.div`
 `;
 const LoginContainer = styled.div`
   position: absolute;
-  width: 350px;
-  height: 350px;
+  width: 600px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   top: 50%;
   left: 50%;
-  margin-top: -175px;
-  margin-left: -175px;
+  margin-top: -300px;
+  margin-left: -300px;
   background-color: white;
   opacity: 0.9;
 `;

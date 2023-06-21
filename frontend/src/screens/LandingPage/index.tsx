@@ -243,6 +243,18 @@ const LandingPage: React.FC = () => {
             />
           </Routes>
           <Routes>
+            <Route
+              path="/items/category"
+              element={<Category screenName={screenName} />}
+            />
+          </Routes>
+          <Routes>
+            <Route
+              path="/items/product"
+              element={<Product screenName={screenName} />}
+            />
+          </Routes>
+          <Routes>
             <Route path="/teams/usertree" element={<UserTree />} />
           </Routes>
         </Content>

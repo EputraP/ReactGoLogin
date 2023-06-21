@@ -81,6 +81,41 @@ const data = [
     created: "20/06/2023",
     updated: "20/06/2023",
   },
+  {
+    key: "4",
+    name: "Cremona",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
+  },
+  {
+    key: "5",
+    name: "Cremona",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
+  },
+  {
+    key: "6",
+    name: "Cremona",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
+  },
+  {
+    key: "7",
+    name: "Cremona",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
+  },
+  {
+    key: "8",
+    name: "Cremona",
+    code: "AB",
+    created: "20/06/2023",
+    updated: "20/06/2023",
+  },
 ];
 
 const columns: any = [
@@ -163,24 +198,11 @@ const Brand = (props: Props) => {
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  name={["user", "email"]}
-                  label="Email"
-                  rules={[{ type: "email" }]}
+                  name={["user", "code"]}
+                  label="Code"
+                  rules={[{ required: true }]}
                 >
                   <Input />
-                </Form.Item>
-                <Form.Item
-                  name={["user", "age"]}
-                  label="Age"
-                  rules={[{ type: "number", min: 0, max: 99 }]}
-                >
-                  <InputNumber />
-                </Form.Item>
-                <Form.Item name={["user", "website"]} label="Website">
-                  <Input />
-                </Form.Item>
-                <Form.Item name={["user", "introduction"]} label="Introduction">
-                  <Input.TextArea />
                 </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
@@ -205,24 +227,11 @@ const Brand = (props: Props) => {
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  name={["user", "email"]}
-                  label="Email"
-                  rules={[{ type: "email" }]}
+                  name={["user", "code"]}
+                  label="Code"
+                  rules={[{ required: true }]}
                 >
                   <Input />
-                </Form.Item>
-                <Form.Item
-                  name={["user", "age"]}
-                  label="Age"
-                  rules={[{ type: "number", min: 0, max: 99 }]}
-                >
-                  <InputNumber />
-                </Form.Item>
-                <Form.Item name={["user", "website"]} label="Website">
-                  <Input />
-                </Form.Item>
-                <Form.Item name={["user", "introduction"]} label="Introduction">
-                  <Input.TextArea />
                 </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
