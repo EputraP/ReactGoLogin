@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Splitter from "m-react-splitters";
 import styled from "styled-components";
-import { RadioButton } from "../../components";
+import { RadioButton, UploadWidget } from "../../components";
 import { Button, Form, Input, InputNumber } from "antd";
 import { ListItems } from "../Items";
 import "./Items.css";
@@ -55,8 +55,17 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-const onFinish = (values: any) => {
+const onFinish = async (values: any) => {
   console.log(values);
+  const formData = new FormData();
+  for (const name in values) {
+    formData.append(name, values[name]); // there should be values.avatar which is a File object
+  }
+  const res = await fetch("/blabla", {
+    method: "POST",
+    body: formData, // automagically sets Content-Type: multipart/form-data header
+  });
+  // handle res however you want
 };
 
 const data = [
@@ -240,6 +249,19 @@ const Product = (props: Props) => {
                 >
                   <Input />
                 </Form.Item>
+                <Form.Item>
+                  <div>
+                    <UploadWidget />
+                    <form
+                      encType="multipart/form-data"
+                      action="http://localhost:8080/upload"
+                      method="post"
+                    >
+                      <input type="file" name="myFile" />
+                      <input type="submit" value="upload" />
+                    </form>
+                  </div>
+                </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
                     Create
@@ -290,6 +312,7 @@ const Product = (props: Props) => {
                 >
                   <Input />
                 </Form.Item>
+
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
                     Update
