@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { RadioButton, UploadWidget } from "../../components";
 import { Button, Form, Input, InputNumber } from "antd";
 import { ListItems } from "../Items";
+import axios from "axios";
 import "./Items.css";
 
 interface Props {
@@ -54,19 +55,6 @@ const validateMessages = {
   },
 };
 /* eslint-enable no-template-curly-in-string */
-
-const onFinish = async (values: any) => {
-  console.log(values);
-  const formData = new FormData();
-  for (const name in values) {
-    formData.append(name, values[name]); // there should be values.avatar which is a File object
-  }
-  const res = await fetch("/blabla", {
-    method: "POST",
-    body: formData, // automagically sets Content-Type: multipart/form-data header
-  });
-  // handle res however you want
-};
 
 const data = [
   {
@@ -165,15 +153,27 @@ const columns: any = [
   },
 ];
 
+const GetFileImage = async () => {
+  return await axios
+    .get("http://localhost:4352/systemArchitecture.png")
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((e) => console.log(e.response.status));
+};
+
 const Product = (props: Props) => {
   const { screenName } = props;
   const [RadioValue, setRadioValue] = useState("Create");
   const [CreUptButtonFlag, setCreUptButtonFlag] = useState(false);
+  const [fileData, setFileData] = useState();
 
   const radioButtonOnChange = (value: any) => {
     setRadioValue(value);
   };
-  console.log(screenName);
+  GetFileImage().then((data) => {
+    setFileData(data);
+  });
   return (
     <Splitter
       position="vertical"
@@ -191,6 +191,7 @@ const Product = (props: Props) => {
           data={data}
           columns={columns}
         />
+        <div>{fileData}</div>
       </SplitterContainer>
       {CreUptButtonFlag && (
         <SplitterContainer>
@@ -210,7 +211,7 @@ const Product = (props: Props) => {
               <FormContainerInner
                 {...layout}
                 name="nest-messages"
-                onFinish={onFinish}
+                // onFinish={onFinish}
                 style={{ maxWidth: 600 }}
                 validateMessages={validateMessages}
               >
@@ -273,7 +274,6 @@ const Product = (props: Props) => {
               <FormContainerInner
                 {...layout}
                 name="nest-messages"
-                onFinish={onFinish}
                 style={{ maxWidth: 600 }}
                 validateMessages={validateMessages}
               >
