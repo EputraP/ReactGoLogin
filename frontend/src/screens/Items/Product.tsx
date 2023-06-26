@@ -155,7 +155,7 @@ const columns: any = [
 
 const GetFileImage = async () => {
   return await axios
-    .get("http://localhost:4352/systemArchitecture.png")
+    .get("http://localhost:4352/image")
     .then(({ data }) => {
       return data;
     })
@@ -172,8 +172,11 @@ const Product = (props: Props) => {
     setRadioValue(value);
   };
   GetFileImage().then((data) => {
+    // console.log(JSON.parse(data));
+    console.log(typeof data);
     setFileData(data);
   });
+
   return (
     <Splitter
       position="vertical"
@@ -191,7 +194,9 @@ const Product = (props: Props) => {
           data={data}
           columns={columns}
         />
-        <div>{fileData}</div>
+        <div>
+          <img src={fileData} alt="Red dot" />
+        </div>
       </SplitterContainer>
       {CreUptButtonFlag && (
         <SplitterContainer>
